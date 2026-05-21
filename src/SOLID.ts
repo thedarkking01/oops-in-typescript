@@ -70,3 +70,39 @@ class UserService {
     console.log("User registration completed");
   }
 }
+
+
+// ocp - Open/Closed Principle (OCP) states:
+
+// “Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.”
+
+// create abstract class 
+interface PaymentMethod {
+  pay(amount: number): void;
+}
+//Create implementations
+class CardPayment implements PaymentMethod {
+  pay(amount: number): void {
+    console.log(`Paid ₹${amount} using Card`);
+  }
+}
+
+class PaypalPayment implements PaymentMethod {
+  pay(amount: number): void {
+    console.log(`Paid ₹${amount} using Paypal`);
+  }
+}
+
+//Main service
+class PaymentService {
+  process(paymentMethod: PaymentMethod, amount: number) {
+    paymentMethod.pay(amount);
+  }
+}
+
+//Usage
+const service = new PaymentService();
+
+service.process(new CardPayment(), 1000);
+
+service.process(new PaypalPayment(), 2000);
