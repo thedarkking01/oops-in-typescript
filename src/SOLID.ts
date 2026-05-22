@@ -106,3 +106,67 @@ const service = new PaymentService();
 service.process(new CardPayment(), 1000);
 
 service.process(new PaypalPayment(), 2000);
+
+
+
+// LSP - Liskov Substitution Principle (LSP) states:
+
+// “Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program.”
+//A child class should behave correctly when used instead of its parent.
+
+// The Real Meaning of LSP
+
+// LSP is about:
+
+// Behavioral Compatibility
+
+// Not just:
+
+// same methods
+// same types
+
+// But also:
+
+// same expectations
+// same behavior
+// same guarantees
+// A Better Design
+
+// Instead of forcing inheritance:
+
+// Square IS-A Rectangle
+// Use abstraction.
+
+//Step 1 — Create Common Interface
+interface Shape {
+  getArea(): number;
+}
+
+//Step 2 — Create Concrete Implementations
+class Rectangle implements Shape {
+  constructor(
+    private width: number,
+    private height: number
+  ) {}
+
+  getArea(): number {
+    return this.width * this.height;
+  }
+}
+class Square implements Shape {
+  constructor(private side: number) {}
+
+  getArea(): number {
+    return this.side * this.side;
+  }
+}
+//Step 3 — Use Polymorphism
+function printArea(shape: Shape) {
+  console.log("Area =", shape.getArea());
+}
+
+const rectangle = new Rectangle(5, 10);
+const square = new Square(5);
+
+printArea(rectangle);
+printArea(square);
